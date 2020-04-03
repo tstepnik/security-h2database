@@ -13,5 +13,5 @@ CREATE TABLE authorities (
   authority varchar(45) NOT NULL,
   PRIMARY KEY (user_role_id),
   UNIQUE KEY uni_username_role (authority,username),
-  KEY fk_username_idx (username),
+--   KEY fk_username_idx (username),
   CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username));

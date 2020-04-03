@@ -21,7 +21,6 @@ public class User {
     private String email;
     @NotEmpty
     private String password;
-    @JoinTable(name="users_roless")
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<UserRole> roles = new HashSet<>();
 

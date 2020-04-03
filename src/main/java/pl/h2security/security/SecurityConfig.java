@@ -15,8 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableAutoConfiguration(
-        exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     DataSource dataSource;
@@ -37,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/h2").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -52,5 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .jdbcAuthentication()
                 .dataSource(dataSource);
+//                .withUser("admin").password("{noop}AdMin!@3").roles("USER");
     }
 }
