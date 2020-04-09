@@ -37,15 +37,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/registration").permitAll()
+                .antMatchers("/", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .permitAll()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .permitAll();
+                .httpBasic();
+//                .formLogin()
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/")
+//                .permitAll();
+
+        http
+                .csrf().disable()
+                .headers().frameOptions().disable();
     }
 
     @Override

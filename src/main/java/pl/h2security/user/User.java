@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Table(name = "users")
+
 @Entity
 public class User {
 
@@ -24,7 +24,7 @@ public class User {
     @NotEmpty
     private String password;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles")
+//    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<UserRole> roles = new HashSet<>();
 
     public Long getId() {
