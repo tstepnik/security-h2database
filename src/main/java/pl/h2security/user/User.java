@@ -7,24 +7,31 @@ import java.util.Objects;
 import java.util.Set;
 
 
-@Entity
+@Entity(name = "users")
 public class User {
+
+    public User(){}
+
+    public User(String userName, String password) {
+        this.userName=userName;
+        this.password=password;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty
+    @Column(name = "username")
     private String userName;
-    @NotEmpty
+
     private String firstName;
-    @NotEmpty
+
     private String lastName;
-    @NotEmpty
+
     private String email;
     @NotEmpty
     private String password;
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-//    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     private Set<UserRole> roles = new HashSet<>();
 
     public Long getId() {

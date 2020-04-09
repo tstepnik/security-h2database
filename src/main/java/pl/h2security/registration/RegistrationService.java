@@ -7,6 +7,7 @@ import pl.h2security.registration.exceptions.EmailAlreadyExistException;
 import pl.h2security.registration.exceptions.UserAlreadyExistException;
 import pl.h2security.registration.exceptions.UserNotExistException;
 import pl.h2security.repository.UserRepository;
+import pl.h2security.service.UserService;
 import pl.h2security.user.User;
 
 @Service
@@ -14,10 +15,13 @@ public class RegistrationService {
 
 
     private UserRepository userRepo;
+    private UserService userService;
+
 
     @Autowired
-    public RegistrationService(UserRepository userRepo) {
+    public RegistrationService(UserRepository userRepo,UserService userService) {
         this.userRepo = userRepo;
+        this.userService=userService;
     }
 
     public void register(User user) {
@@ -28,7 +32,7 @@ public class RegistrationService {
         } else if (loginExist(user.getUserName())){
             throw new UserAlreadyExistException("There is account with that user name.");
         }
-        userRepo.save(user);
+        userService.addWithDefaultRole(user);
     }
 
     private boolean emailExist(String email) {
