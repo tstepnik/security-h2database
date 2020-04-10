@@ -13,6 +13,7 @@ import pl.h2security.user.UserRole;
 
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -26,23 +27,26 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    //dodaj sprawdzanie hasła
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
-        if (user == null)
+    public UserDetails loadUserByUsername(String username ) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByEmail(username);
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found");
-        org.springframework.security.core.userdetails.User userDetails =
+        }
+            org.springframework.security.core.userdetails.User userDetails =
                 new org.springframework.security.core.userdetails.User(
-                        user.getEmail(),
-                        user.getPassword(),
-                        convertAuthorities(user.getRoles()));
+                        user.get().getEmail(),
+                        user.get().getPassword(),
+                        convertAuthorities(user.get().getRoles()));
         return userDetails;
     }
 
     private Set<GrantedAuthority> convertAuthorities(Set<UserRole> userRoles) {
         Set<GrantedAuthority> authorities = new HashSet<>();
         for (UserRole ur : userRoles) {
-            authorities.add(new SimpleGrantedAuthority(ur.getRole()));
+            authorities.add(new SimpleGrantedAuthority(ur.getRole().toString()));
         }
         return authorities;
     }

@@ -31,7 +31,7 @@ public class User {
     private String email;
     @NotEmpty
     private String password;
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles = new HashSet<>();
 
     public Long getId() {

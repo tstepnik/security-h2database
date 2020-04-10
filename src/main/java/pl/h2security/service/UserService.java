@@ -16,19 +16,13 @@ public class UserService {
     private UserRoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserService(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserRoleRepository roleRepository,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-    }
-
-    @Autowired
-    public void setRoleRepository(UserRoleRepository roleRepository) {
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void addWithDefaultRole(User user) {

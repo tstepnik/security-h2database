@@ -1,9 +1,5 @@
 package pl.h2security.user;
-
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class UserRole  {
@@ -11,13 +7,16 @@ public class UserRole  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String role;
-    private String description;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
 
+    public UserRole(){}
 
-
+    public UserRole(Role role ){
+        this.role=role;
+    }
 
     public Long getId() {
         return id;
@@ -27,20 +26,12 @@ public class UserRole  {
         this.id = id;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
@@ -48,8 +39,6 @@ public class UserRole  {
         return "UserRole{" +
                 "id=" + id +
                 ", role='" + role + '\'' +
-                ", description='" + description + '\'' +
                 '}';
     }
-
 }

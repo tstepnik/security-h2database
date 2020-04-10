@@ -10,6 +10,8 @@ import pl.h2security.repository.UserRepository;
 import pl.h2security.service.UserService;
 import pl.h2security.user.User;
 
+import java.util.Optional;
+
 @Service
 public class RegistrationService {
 
@@ -36,16 +38,16 @@ public class RegistrationService {
     }
 
     private boolean emailExist(String email) {
-        User user = userRepo.findByEmail(email);
-        if (user != null) {
+        Optional<User> user = userRepo.findByEmail(email);
+        if (user.isPresent()) {
             return true;
         }
         return false;
     }
 
     private boolean loginExist(String login) {
-        User user = userRepo.findByUserName(login);
-        if (user != null) {
+        Optional<User> user = userRepo.findByUserName(login);
+        if (user.isPresent()) {
             return true;
         }
         return false;
