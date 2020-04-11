@@ -27,9 +27,7 @@ public class RegistrationService {
     }
 
     public void register(User user) {
-        if (user != null) {
-            throw new UserNotExistException("User doesn't exist.");
-        } else if (emailExist(user.getEmail())) {
+        if (emailExist(user.getEmail())) {
             throw new EmailAlreadyExistException("There is account with that email adress.");
         } else if (loginExist(user.getUserName())){
             throw new UserAlreadyExistException("There is account with that user name.");

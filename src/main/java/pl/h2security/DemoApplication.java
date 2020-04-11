@@ -10,11 +10,7 @@ import pl.h2security.user.User;
 import pl.h2security.user.UserRole;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.Enumerated;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -37,8 +33,8 @@ public class DemoApplication {
 
     @PostConstruct
     private void init() {
-        UserRole userRole = new UserRole(Role.USER_ROLE);
-        UserRole adminRole = new UserRole(Role.ADMIN_ROLE);
+        UserRole userRole = new UserRole(Role.ROLE_USER);
+        UserRole adminRole = new UserRole(Role.ROLE_ADMIN);
 
         roleRepository.save(userRole);
         roleRepository.save(adminRole);
