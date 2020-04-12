@@ -10,16 +10,18 @@ import java.util.Set;
 @Entity(name = "users")
 public class User {
 
-    public User(){}
+    public User() {
+    }
 
     public User(String userName, String password) {
-        this.userName=userName;
-        this.password=password;
+        this.userName = userName;
+        this.password = password;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotEmpty
     @Column(name = "username")
     private String userName;
@@ -29,8 +31,10 @@ public class User {
     private String lastName;
 
     private String email;
+
     @NotEmpty
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles = new HashSet<>();
 

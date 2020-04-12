@@ -32,15 +32,14 @@ public class CustomAuthenticator implements AuthenticationProvider {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         String login = authentication.getName();
-        String password = passwordEncoder.encode(authentication.getCredentials().toString());
+        String password = authentication.getCredentials().toString();
 
         User user = userRepository.findByUserName(login).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        if (!user.getPassword().equals(password)) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Bad credentials");
         }
 

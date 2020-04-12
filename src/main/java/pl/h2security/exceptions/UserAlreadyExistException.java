@@ -1,4 +1,4 @@
-package pl.h2security.registration.exceptions;
+package pl.h2security.exceptions;
 
 public class UserAlreadyExistException extends RuntimeException {
     public UserAlreadyExistException(String message) {

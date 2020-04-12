@@ -1,24 +1,17 @@
-package pl.h2security.registration;
+package pl.h2security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import pl.h2security.registration.exceptions.EmailAlreadyExistException;
-import pl.h2security.registration.exceptions.UserAlreadyExistException;
-import pl.h2security.registration.exceptions.UserNotExistException;
 import pl.h2security.repository.UserRepository;
-import pl.h2security.service.UserService;
 import pl.h2security.user.User;
-
+import pl.h2security.exceptions.*;
 import java.util.Optional;
 
 @Service
 public class RegistrationService {
 
-
-    private UserRepository userRepo;
-    private UserService userService;
-
+    private final UserRepository userRepo;
+    private final UserService userService;
 
     @Autowired
     public RegistrationService(UserRepository userRepo,UserService userService) {
@@ -50,5 +43,4 @@ public class RegistrationService {
         }
         return false;
     }
-
 }
